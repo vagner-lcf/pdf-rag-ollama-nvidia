@@ -1,0 +1,30 @@
+# Ambient and Python cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+data/*
+!data/.gitkeep
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+client_secret*.json
+*key*.json
+
+# Local data
+*.db
+*.sqlite3
+*.sqldb
+
+# Temporary and system
+*.log
+.DS_Store
+Thumbs.db
