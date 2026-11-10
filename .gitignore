@@ -5,8 +5,19 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+
+# Local documents and generated indexes
 data/*
 !data/.gitkeep
+!data/documents/
+data/documents/*
+!data/documents/.gitkeep
+
+# Local evaluation data
+evaluation/benchmark*.json
+!evaluation/benchmark.example.json
+evaluation/results/
+evaluation/analysis/
 
 # Secrets and credentials
 .env

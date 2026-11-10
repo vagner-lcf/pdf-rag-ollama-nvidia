@@ -1,0 +1,13 @@
+[
+  {
+    "id": "Q01",
+    "question": "Qual é o prazo estabelecido para a solicitação?",
+    "expected_answer": "O prazo é de 5 dias úteis.",
+    "required_points": [
+      "Prazo de 5 dias úteis"
+    ],
+    "evidence": [
+      "Trecho do documento de exemplo que estabelece o prazo."
+    ]
+  }
+]

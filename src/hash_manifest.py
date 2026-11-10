@@ -1,7 +1,7 @@
 import hashlib, json
 from pathlib import Path
 
-def get_pdf_hashes(pdf_dir: str) -> dict:
+def get_pdf_hashes(pdf_dir: str | Path) -> dict[str, str]:
     """Calculates SHA256 hashes for all PDF files in the specified directory.
 
     Args:
@@ -16,7 +16,7 @@ def get_pdf_hashes(pdf_dir: str) -> dict:
     }
 
 def needs_reindex(data_dir:str, persist_directory:str) -> bool:
-    """Checks if the hash manifest needs to be updated.
+    """Checks whether the document index needs to be rebuilt.
 
     Args:
         data_dir (str): Path to the directory containing PDF files.

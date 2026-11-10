@@ -1,6 +1,8 @@
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.runnables import Runnable
 
+from time import perf_counter
+
 
 def consult_documents(
     query: str,
@@ -25,7 +27,12 @@ def consult_documents(
     Returns:
         dict: A dictionary containing the query, rewritten query, response, sources, and provider.
     """
+    if not isinstance(query, str) or not query.strip():
+        raise ValueError("Digite uma pergunta válida.")
+    
+    start = perf_counter()
     rewritten_query = rewriter_chain.invoke({"query": query})
+    rewrite_end = perf_counter()
 
     if not isinstance(rewritten_query, str) or not rewritten_query.strip():
         raise ValueError("Rewriter retornou uma consulta vazia.")
@@ -33,18 +40,26 @@ def consult_documents(
     rewritten_query = rewritten_query.strip()
 
     similar_chunks = retriever.invoke(rewritten_query)
+    retrieve_end = perf_counter()
 
     if not similar_chunks:
         raise LookupError("Nenhum documento relevante encontrado para a consulta fornecida.")
 
     context = "\n\n".join(
-        chunk.page_content for chunk in similar_chunks
+        f"Documento: {chunk.metadata.get('source', 'não informado')}\n"
+        f"{chunk.page_content}"
+        for chunk in similar_chunks
     )
 
     response = chain.invoke({
         "query": query,
         "context": context
     })
+
+    if not isinstance(response, str) or not response.strip():
+        raise ValueError("O modelo retornou uma resposta vazia.")
+    
+    read_end = perf_counter()
 
     return {
         "query": query,
@@ -58,6 +73,12 @@ def consult_documents(
             for chunk in similar_chunks
         ],
         "provider": provider,
+        "timings_seconds": {
+            "rewrite": round(rewrite_end - start, 3),
+            "retrieve": round(retrieve_end - rewrite_end, 3),
+            "read": round(read_end - retrieve_end, 3),
+            "total": round(read_end - start, 3),
+        },
     }
                       
 def answer_questions(
@@ -102,5 +123,8 @@ def answer_questions(
 
         except (ValueError, LookupError) as e:
             print(f"Erro: {e}\n")
+
+        except Exception as e:
+            print(f"Falha na consulta ({type(e).__name__}): {e}\n")
 
     return "Programa encerrando. Obrigado por utilizar o assistente de consulta de documentos.\n"

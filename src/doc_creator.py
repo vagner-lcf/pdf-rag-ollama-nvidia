@@ -1,8 +1,9 @@
 from pypdf import PdfReader
+from pathlib import Path
 from langchain_core.documents import Document
 
 
-def read_pdfs_and_convert_to_documents(pdf_files: list) -> list:
+def read_pdfs_and_convert_to_documents(pdf_files: list[Path]) -> list[Document]:
     """Reads PDF files and converts them to Document objects.
 
     Args:
