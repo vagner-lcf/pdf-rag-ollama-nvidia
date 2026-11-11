@@ -88,8 +88,6 @@ python src/evaluator.py --benchmark evaluation/benchmark.local.json --results ev
 
 Results are saved as JSON files for further analysis. The evaluator assigns scores from **0 to 2** based on the benchmark criteria.
 
-## Limitations and next steps
+## Project limitations
 
 The project supports **PDFs with extractable text** (no OCR). Retrieving four chunks may miss evidence, and consequential answers require verification. In NVIDIA mode, data used in queries is sent to the provider. The current version is an **experimental CLI**, not a production-ready service.
-
-**Next:** a minimal **Streamlit** interface in the same repository, retaining the CLI and adding provider selection, questions, and sourced answers.

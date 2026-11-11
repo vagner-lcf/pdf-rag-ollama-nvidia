@@ -88,8 +88,6 @@ python src/evaluator.py --benchmark evaluation/benchmark.local.json --results ev
 
 Os resultados são salvos em JSON para análise posterior. O avaliador atribui notas de **0 a 2** conforme os critérios do gabarito.
 
-## Limitações e próximos passos
+## Limitações do projeto
 
 O projeto trabalha com **PDFs que contenham texto extraível** (sem OCR). A recuperação de quatro trechos pode omitir evidências, e respostas importantes exigem conferência. No modo NVIDIA, dados usados nas consultas são enviados ao provedor. A versão atual é um **CLI experimental**, não uma solução pronta para produção.
-
-**Próxima etapa:** interface simples em **Streamlit** no mesmo repositório, mantendo o CLI, com seleção de provedor, perguntas e respostas com fontes.
